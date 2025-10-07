@@ -8,7 +8,7 @@ zero = df.columns[(df==0).all()]
 df=df.drop(columns=zero, axis=1) #delete empty column
 
 df_win=df.iloc[:,2:] # remove first two columns
-df_win=df_win.applymap(lambda x: 1 if x != 0 else 0)
+df_win=df_win.map(lambda x: 1 if x != 0 else 0)
 cols = list(range(1,51))
 cols.extend(list(range(1,13)))
 
@@ -46,11 +46,13 @@ class LogisticRegression(nn.Module):
 X = traning_data[:, :-1].float()
 y = traning_data[:, -1].float().unsqueeze(1)
 
+
 MODEL_PATH = "model.pth"
-if os.path.exists(MODEL_PATH):
-    model = torch.load("entire_model.pth")
-else:
-    model = LogisticRegression(X.shape[1])
+# if os.path.exists(MODEL_PATH):
+#     model = LogisticRegression(X.shape[1])
+#     model.load_state_dict(torch.load(MODEL_PATH))
+# else:
+model = LogisticRegression(X.shape[1])
 model.train()
 
 

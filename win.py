@@ -1,8 +1,21 @@
 
 # Generate a random dataset with 10 million records and 62 features
 import torch
-random_inputs = torch.randint(0, 2, (1000, 62), dtype=torch.float)
-model = torch.load("model.pth")
+import torch.nn as nn
+
+
+# Define logistic regression model
+class LogisticRegression(nn.Module):
+    def __init__(self, input_dim):
+        super(LogisticRegression, self).__init__()
+        self.linear = nn.Linear(input_dim, 1)
+    
+    def forward(self, x):
+        return torch.sigmoid(self.linear(x))
+
+random_inputs = torch.randint(0, 2, (10000, 62), dtype=torch.float)
+model = LogisticRegression(62)
+model.load_state_dict(torch.load("model.pth"))
 model.eval()
 # Predict probabilities using the trained model
 with torch.no_grad():
