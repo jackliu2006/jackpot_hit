@@ -28,9 +28,8 @@ def generate_constrained_inputs(num_samples, num_features):
     
     return inputs
 
-random_inputs = generate_constrained_inputs(2000000, 62)
+random_inputs = generate_constrained_inputs(3000000, 62)
 
-print(random_inputs[1,:])
 
 model = LogisticRegression(62)
 model.load_state_dict(torch.load("model.pth"))
